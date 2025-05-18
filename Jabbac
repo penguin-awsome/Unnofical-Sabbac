@@ -1,0 +1,89 @@
+#Imports:
+import time #'cause I like pauses for no good reason
+import random #for things like dice rolls, shuffling, and card draws
+
+#Classes:
+class Card:
+    def __init__(self, card, polarity, value, stave):
+        self.card = card
+        self.type = polarity
+        self.value = value
+        self.stave = stave
+  
+class Deck:
+    def __init__(self):
+        self.cards = [
+            #list of cards
+                #Cylops
+            Card("Cylop", "neutral", 0, None),
+            Card("Cylop", "neutral", 0, None),
+                #Positive
+                    #Triangles
+            Card("Tri-Pos-1", "positive", 1, "triangles"),
+            Card("Tri-Pos-2", "positive", 2, "triangles"),
+            Card("Tri-Pos-3", "positive", 3, "triangles"),
+            Card("Tri-Pos-4", "positive", 4, "triangles"),
+            Card("Tri-Pos-5", "positive", 5, "triangles"),
+            Card("Tri-Pos-6", "positive", 6, "triangles"),
+            Card("Tri-Pos-7", "positive", 7, "triangles"),
+            Card("Tri-Pos-8", "positive", 8, "triangles"),
+            Card("Tri-Pos-9", "positive", 9, "triangles"),
+            Card("Tri-Pos-10", "positive", 10, "triangles"),
+                    #squares
+            Card("Sqr-Pos-1", "positive", 1, "squares"),
+            Card("Sqr-Pos-2", "positive", 2, "squares"),
+            Card("Sqr-Pos-3", "positive", 3, "squares"),
+            Card("Sqr-Pos-4", "positive", 4, "squares"),
+            Card("Sqr-Pos-5", "positive", 5, "squares"),
+            Card("Sqr-Pos-6", "positive", 6, "squares"),
+            Card("Sqr-Pos-7", "positive", 7, "squares"),
+            Card("Sqr-Pos-8", "positive", 8, "squares"),
+            Card("Sqr-Pos-9", "positive", 9, "squares"),
+            Card("Sqr-Pos-10", "positive", 10, "squares"),
+                    #Circles
+            Card("Cir-Pos-1", "positive", 1, "circles"),
+            Card("Cir-Pos-2", "positive", 2, "circles"),
+            Card("Cir-Pos-3", "positive", 3, "circles"),
+            Card("Cir-Pos-4", "positive", 4, "circles"),
+            Card("Cir-Pos-5", "positive", 5, "circles"),
+            Card("Cir-Pos-6", "positive", 6, "circles"),
+            Card("Cir-Pos-7", "positive", 7, "circles"),
+            Card("Cir-Pos-8", "positive", 8, "circles"),
+            Card("Cir-Pos-9", "positive", 9, "circles"),
+            Card("Cir-Pos-10", "positive", 10, "circles"),
+                #Negative
+                    #Triangles
+            Card("Tri-Neg-1", "negative", 1, "triangles"),
+            Card("Tri-Neg-2", "negative", 2, "triangles"),
+            Card("Tri-Neg-3", "negative", 3, "triangles"),
+            Card("Tri-Neg-4", "negative", 4, "triangles"),
+            Card("Tri-Neg-5", "negative", 5, "triangles"),
+            Card("Tri-Neg-6", "negative", 6, "triangles"),
+            Card("Tri-Neg-7", "negative", 7, "triangles"),
+            Card("Tri-Neg-8", "negative", 8, "triangles"),
+            Card("Tri-Neg-9", "negative", 9, "triangles"),
+            Card("Tri-Neg-10", "negative", 10, "triangles"),
+                    #squares
+            Card("Sqr-Neg-1", "negative", 1, "squares"),
+            Card("Sqr-Neg-2", "negative", 2, "squares"),
+            Card("Sqr-Neg-3", "negative", 3, "squares"),
+            Card("Sqr-Neg-4", "negative", 4, "squares"),
+            Card("Sqr-Neg-5", "negative", 5, "squares"),
+            Card("Sqr-Neg-6", "negative", 6, "squares"),
+            Card("Sqr-Neg-7", "negative", 7, "squares"),
+            Card("Sqr-Neg-8", "negative", 8, "squares"),
+            Card("Sqr-Neg-9", "negative", 9, "squares"),
+            Card("Sqr-Neg-10", "negative", 10, "squares"),
+                    #Circles
+            Card("Cir-Neg-1", "negative", 1, "circles"),
+            Card("Cir-Neg-2", "negative", 2, "circles"),
+            Card("Cir-Neg-3", "negative", 3, "circles"),
+            Card("Cir-Neg-4", "negative", 4, "circles"),
+            Card("Cir-Neg-5", "negative", 5, "circles"),
+            Card("Cir-Neg-6", "negative", 6, "circles"),
+            Card("Cir-Neg-7", "negative", 7, "circles"),
+            Card("Cir-Neg-8", "negative", 8, "circles"),
+            Card("Cir-Neg-9", "negative", 9, "circles"),
+            Card("Cir-Neg-10", "negative", 10, "circles"),
+            
+        ]
