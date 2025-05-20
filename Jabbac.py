@@ -3,6 +3,7 @@ import time #'cause I like pauses for no good reason
 import random #for things like dice rolls, shuffling, and card draws
 
 #variables
+credits = 0
 
 #Classes:
 class Card:
@@ -99,7 +100,6 @@ class Deck:
     def shuffle(self):
         random.shuffle(self.cards)
 
-
     def shuffle(self):
         random.shuffle(self.cards) 
         return self.cards
@@ -111,6 +111,44 @@ class Player:
         self.credits = credits
         self.scrapped = False
         self.ingame = False
+
+class Game:
+    def __init__(self, players):
+        self.players = players
+        self.deck = Deck()
+        self.pot = 0
+        self.hand = 0
+
+    def ante(self):
+        for player in self.players:
+            if player.ingame and player.credits > 0:
+                player.credits -= 1
+                self.pot += 1
+    
+    def deal(self):
+        pass
+    
+    def player_actions(self):
+        pass
+
+    def betting_phase(self):
+        pass
+
+    def dice_roll(self):
+        pass
+
+    def reveal_hands():
+        pass
+
+    def game_loop(self):
+        shuffled_deck = deck.shuffle()
+        self.ante()
+        self.deal()
+        for rounds in range(3):
+            self.player_actions()
+            self.betting_phase()
+            self.dice_roll()
+        self.reveal_hands()
 
 deck = Deck()
 shuffled_deck = deck.shuffle()
