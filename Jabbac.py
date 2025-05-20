@@ -2,6 +2,8 @@
 import time #'cause I like pauses for no good reason
 import random #for things like dice rolls, shuffling, and card draws
 
+#variables
+
 #Classes:
 class Card:
     def __init__(self, card, polarity, value, stave):
@@ -9,6 +11,9 @@ class Card:
         self.type = polarity
         self.value = value
         self.stave = stave
+
+    def __repr__(self):
+        return f"{self.card}"
   
 class Deck:
     def __init__(self):
@@ -87,3 +92,26 @@ class Deck:
             Card("Cir-Neg-10", "negative", 10, "circles"),
             
         ]
+
+    def __repr__(self):
+        return "\n".join([repr(card) for card in self.cards])
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+
+    def shuffle(self):
+        random.shuffle(self.cards) 
+        return self.cards
+    
+class Player:
+    def __init__(self, name, credits):
+        self.name = name
+        self.hand = []
+        self.credits = credits
+        self.scrapped = False
+        self.ingame = False
+
+deck = Deck()
+shuffled_deck = deck.shuffle()
+print(shuffled_deck)
