@@ -5,6 +5,7 @@ import random #for things like dice rolls, shuffling, and card draws
 #variables
 credits = 0
 
+
 #Classes:
 class Card:
     def __init__(self, card, polarity, value, stave):
@@ -126,7 +127,13 @@ class Game:
                 self.pot += 1
     
     def deal(self):
-        pass
+        cards_to_deal = 2
+        for player in self.players:
+            for i in cards_to_deal:
+                player.hand.append(Deck.shuffle.pop)
+
+
+            
     
     def player_actions(self):
         pass
@@ -134,8 +141,15 @@ class Game:
     def betting_phase(self):
         pass
 
-    def dice_roll(self):
-        pass
+    def dice_roll():
+        dice1 = 0
+        dice2 = 0
+        dice1 = random.randint(1,6)
+        dice2 = random.randint(1,6)
+        if dice1 == dice2:
+            print("re-draw hands:", dice1, dice2)
+        else:
+            print("safe:", dice1, dice2)
 
     def reveal_hands():
         pass
@@ -147,9 +161,12 @@ class Game:
         for rounds in range(3):
             self.player_actions()
             self.betting_phase()
-            self.dice_roll()
+            random_dice = self.dice_roll()
         self.reveal_hands()
 
 deck = Deck()
 shuffled_deck = deck.shuffle()
 print(shuffled_deck)
+random_dice = Game.dice_roll()
+Penguin = Player("Penguin", 3)
+Game.players.append(Penguin)
