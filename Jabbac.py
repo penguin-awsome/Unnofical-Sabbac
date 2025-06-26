@@ -7,6 +7,8 @@ credits = 0
 
 
 #Classes:
+
+#Card Info
 class Card:
     def __init__(self, card, polarity, value, stave):
         self.card = card
@@ -16,11 +18,12 @@ class Card:
 
     def __repr__(self):
         return f"{self.card}"
-  
+
+#Deck List & Functions
 class Deck:
     def __init__(self):
         self.cards = [
-            #list of cards
+#List of Cards
                 #Cylops
             Card("Cylop", "neutral", 0, None),
             Card("Cylop", "neutral", 0, None),
@@ -95,6 +98,7 @@ class Deck:
             
         ]
 
+#Deck Functions
     def __repr__(self):
         return "\n".join([repr(card) for card in self.cards])
 
@@ -105,6 +109,7 @@ class Deck:
     def draw(self):
         return self.cards.pop() 
     
+#Player Info (Will Later Include Player Creation)
 class Player:
     def __init__(self, name, credits):
         self.name = name
@@ -112,7 +117,8 @@ class Player:
         self.credits = 10
         self.scrapped = False
         self.ingame = True
-
+        self.current_bet = 0
+#Game Functions
 class Game:
     def __init__(self, players):
         self.players = players
@@ -120,6 +126,7 @@ class Game:
         self.pot = 0
         self.hand = 0
 
+#Game Loop Functions
     def ante(self):
         for player in self.players:
             if player.ingame and player.credits > 0:
@@ -135,7 +142,12 @@ class Game:
                     player.hand.append(card)
                         
     def player_actions(self):
-        pass
+        #for player in self.players:
+            #player_move = input("What do you want do?")
+            #if move.lower() == draw:
+                #draw
+            #etc...
+            return
 
     def dice_roll(self):
         dice1 = 0
@@ -152,7 +164,10 @@ class Game:
             print(f"{player.name}'s hand: {player.hand}")
         print(f"Current pot is: {self.pot}")
 
+#Betting Loop Functions
     def check_for_bet(self):
+        was_bet = False
+
         for player in self.players:
             if player.credits > 0:
                 bet = int(input(f"{player.name}, how many credits do you want to bet? "))
@@ -163,12 +178,31 @@ class Game:
                         print("You've gone all in!")
                     else:
                         print("Safe play!")
+                        bet = 0
                 player.credits -= bet
                 self.pot += bet
-                print(f"{player.name} bet {bet} credits, and have {player.credits} remaining")
+                print(f"{player.name} bet {bet} credits, and has {player.credits} remaining")
+            if bet > 0:
+                was_bet = True
+               
+        return was_bet
 
+    
+    def bet_type_check(self):# player, highest_bet):
+        return
+
+#Game Loop
     def betting_phase(self):
-        self.check_for_bet()
+        betting = self.check_for_bet()
+
+        if not betting:
+            print("nobody bet")
+            return
+        
+        while betting:
+            for player in self.players:
+                self.bet_type_check()
+
     def game_loop(self):
         self.deck.shuffle()
         self.ante()
@@ -180,8 +214,9 @@ class Game:
             random_dice = self.dice_roll()
         #check hands
         #self.reveal_hands()
+        print("Game Over")
 
-
+#Setup Game
 Penguin = Player("Penguin", 3)
 Bill = Player("Bill", 3)
 game = Game([Penguin, Bill])
