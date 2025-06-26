@@ -109,7 +109,7 @@ class Player:
     def __init__(self, name, credits):
         self.name = name
         self.hand = []
-        self.credits = credits
+        self.credits = 10
         self.scrapped = False
         self.ingame = True
 
@@ -123,7 +123,7 @@ class Game:
     def ante(self):
         for player in self.players:
             if player.ingame and player.credits > 0:
-                player.credits -= 1
+                player.credits -= 2
                 self.pot += 2
     
     def deal(self):
@@ -135,9 +135,6 @@ class Game:
                     player.hand.append(card)
                         
     def player_actions(self):
-        pass
-
-    def betting_phase(self):
         pass
 
     def dice_roll(self):
@@ -155,15 +152,34 @@ class Game:
             print(f"{player.name}'s hand: {player.hand}")
         print(f"Current pot is: {self.pot}")
 
+    def check_for_bet(self):
+        for player in self.players:
+            if player.credits > 0:
+                bet = int(input(f"{player.name}, how many credits do you want to bet? "))
+                if bet > player.credits:
+                    all_in = input("You don't have that many credits, do you want to go all in? ") 
+                    if all_in.lower() == "yes":
+                        bet = player.credits
+                        print("You've gone all in!")
+                    else:
+                        print("Safe play!")
+                player.credits -= bet
+                self.pot += bet
+                print(f"{player.name} bet {bet} credits, and have {player.credits} remaining")
+
+    def betting_phase(self):
+        self.check_for_bet()
     def game_loop(self):
         self.deck.shuffle()
         self.ante()
         self.deal()
+        self.reveal_hands()
         for rounds in range(3):
             self.player_actions()
             self.betting_phase()
             random_dice = self.dice_roll()
-        self.reveal_hands()
+        #check hands
+        #self.reveal_hands()
 
 
 Penguin = Player("Penguin", 3)
