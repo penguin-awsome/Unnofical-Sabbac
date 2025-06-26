@@ -124,7 +124,7 @@ class Game:
         for player in self.players:
             if player.ingame and player.credits > 0:
                 player.credits -= 1
-                self.pot += 1
+                self.pot += 2
     
     def deal(self):
         cards_to_deal = 2
@@ -133,8 +133,7 @@ class Game:
                 if self.deck.cards:
                     card = self.deck.draw()
                     player.hand.append(card)
-        return [(player.name, player.hand) for player in self.players]
-    
+                        
     def player_actions(self):
         pass
 
@@ -152,7 +151,9 @@ class Game:
             print("safe:", dice1, dice2)
 
     def reveal_hands(self):
-        pass
+        for player in self.players:
+            print(f"{player.name}'s hand: {player.hand}")
+        print(f"Current pot is: {self.pot}")
 
     def game_loop(self):
         self.deck.shuffle()
@@ -164,11 +165,8 @@ class Game:
             random_dice = self.dice_roll()
         self.reveal_hands()
 
-deck = Deck()
-shuffled_deck = deck.shuffle()
-#print(shuffled_deck)
+
 Penguin = Player("Penguin", 3)
-game = Game([Penguin])
-game.dice_roll()
-dealt_player_hands = game.deal()
-print(dealt_player_hands)
+Bill = Player("Bill", 3)
+game = Game([Penguin, Bill])
+game.game_loop()
