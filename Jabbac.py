@@ -99,11 +99,11 @@ class Deck:
         return "\n".join([repr(card) for card in self.cards])
 
     def shuffle(self):
-        random.shuffle(self.cards)
-
-    def shuffle(self):
         random.shuffle(self.cards) 
         return self.cards
+    
+    def draw(self):
+        return self.cards.pop() 
     
 class Player:
     def __init__(self, name, credits):
@@ -111,7 +111,7 @@ class Player:
         self.hand = []
         self.credits = credits
         self.scrapped = False
-        self.ingame = False
+        self.ingame = True
 
 class Game:
     def __init__(self, players):
@@ -129,11 +129,11 @@ class Game:
     def deal(self):
         cards_to_deal = 2
         for player in self.players:
-            for i in cards_to_deal:
-                player.hand.append(Deck.shuffle.pop)
-
-
-            
+            for _ in range(cards_to_deal):
+                if self.deck.cards:
+                    card = self.deck.draw()
+                    player.hand.append(card)
+        return [(player.name, player.hand) for player in self.players]
     
     def player_actions(self):
         pass
@@ -141,7 +141,7 @@ class Game:
     def betting_phase(self):
         pass
 
-    def dice_roll():
+    def dice_roll(self):
         dice1 = 0
         dice2 = 0
         dice1 = random.randint(1,6)
@@ -151,11 +151,11 @@ class Game:
         else:
             print("safe:", dice1, dice2)
 
-    def reveal_hands():
+    def reveal_hands(self):
         pass
 
     def game_loop(self):
-        shuffled_deck = deck.shuffle()
+        self.deck.shuffle()
         self.ante()
         self.deal()
         for rounds in range(3):
@@ -166,7 +166,9 @@ class Game:
 
 deck = Deck()
 shuffled_deck = deck.shuffle()
-print(shuffled_deck)
-random_dice = Game.dice_roll()
+#print(shuffled_deck)
 Penguin = Player("Penguin", 3)
-Game.players.append(Penguin)
+game = Game([Penguin])
+game.dice_roll()
+dealt_player_hands = game.deal()
+print(dealt_player_hands)
