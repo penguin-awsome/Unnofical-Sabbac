@@ -164,8 +164,11 @@ class Game:
             print(f"{player.name}'s hand: {player.hand}")
         print(f"Current pot is: {self.pot}")
 
-#Betting Loop Functions
-    def check_for_bet(self):
+
+#Betting Loop
+    def betting_phase(self):
+        #Betting Loop Functions
+    #check_for_bet(self):
         was_bet = False
 
         for player in self.players:
@@ -182,27 +185,44 @@ class Game:
                 player.credits -= bet
                 self.pot += bet
                 print(f"{player.name} bet {bet} credits, and has {player.credits} remaining")
+                
             if bet > 0:
                 was_bet = True
-               
+                
         return was_bet
 
-    
     def bet_type_check(self):# player, highest_bet):
-        return
-
+        for player in self.players:
+            if player.credits > 0:
+                if not betplaced:
+                    whatbet = input("Do you want to Bet, Check, or Fold?")
+                    if 'bet' in whatbet.lower():
+                        bet = int(input(f"{player.name}, how many credits do you want to bet? "))
+                        if bet > player.credits:
+                            all_in = input("You don't have that many credits, do you want to go all in? ") 
+                        if all_in.lower() == "yes":
+                            bet = player.credits
+                            print("You've gone all in!")
+                        else:
+                            print("Safe play!")
+                        bet = 0
+                        betplaced = True
+                    elif 'check' in whatbet.lower():
+                        pass
+                    elif 'fold' in whatbet.lower():
+                        self.scrapped = True
+                    else:
+                        print("Invalid input or error")
+                        
+                elif betplaced:
+                    whatbet = input("Do you want to Call, Raise, or Fold?")
+                    if 'call' in whatbet.lower():
+                        pass
+                    elif 'raise' in whatbet.lower():
+                        pass
+                    elif 'fold' in whatbet.lower():
+                        pass
 #Game Loop
-    def betting_phase(self):
-        betting = self.check_for_bet()
-
-        if not betting:
-            print("nobody bet")
-            return
-        
-        while betting:
-            for player in self.players:
-                self.bet_type_check()
-
     def game_loop(self):
         self.deck.shuffle()
         self.ante()
