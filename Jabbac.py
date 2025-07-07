@@ -164,64 +164,44 @@ class Game:
             print(f"{player.name}'s hand: {player.hand}")
         print(f"Current pot is: {self.pot}")
 
-
-#Betting Loop
+#Betting System
     def betting_phase(self):
-        #Betting Loop Functions
-    #check_for_bet(self):
-        was_bet = False
+        highest_bet = 0
+        betting_on = True
 
-        for player in self.players:
-            if player.credits > 0:
-                bet = int(input(f"{player.name}, how many credits do you want to bet? "))
-                if bet > player.credits:
-                    all_in = input("You don't have that many credits, do you want to go all in? ") 
-                    if all_in.lower() == "yes":
-                        bet = player.credits
-                        print("You've gone all in!")
-                    else:
-                        print("Safe play!")
-                        bet = 0
-                player.credits -= bet
-                self.pot += bet
-                print(f"{player.name} bet {bet} credits, and has {player.credits} remaining")
-                
-            if bet > 0:
-                was_bet = True
-                
-        return was_bet
+        while betting_on:
 
-    def bet_type_check(self):# player, highest_bet):
-        for player in self.players:
-            if player.credits > 0:
-                if not betplaced:
-                    whatbet = input("Do you want to Bet, Check, or Fold?")
-                    if 'bet' in whatbet.lower():
-                        bet = int(input(f"{player.name}, how many credits do you want to bet? "))
-                        if bet > player.credits:
-                            all_in = input("You don't have that many credits, do you want to go all in? ") 
-                        if all_in.lower() == "yes":
-                            bet = player.credits
-                            print("You've gone all in!")
-                        else:
-                            print("Safe play!")
-                        bet = 0
-                        betplaced = True
-                    elif 'check' in whatbet.lower():
-                        pass
-                    elif 'fold' in whatbet.lower():
-                        self.scrapped = True
-                    else:
-                        print("Invalid input or error")
-                        
-                elif betplaced:
-                    whatbet = input("Do you want to Call, Raise, or Fold?")
-                    if 'call' in whatbet.lower():
-                        pass
-                    elif 'raise' in whatbet.lower():
-                        pass
-                    elif 'fold' in whatbet.lower():
-                        pass
+            for player in self.players:
+                if player.scrapped or player.credits <= 0:
+                    continue
+
+            if player.current_bet < highest_bet:
+                action = input(f"{player.name}, you have bet {player.current_bet}, and the highest bet is {highest_bet}. Do you want to: |Call| |Bet| |Scrap| ").lower()
+
+                if 'call' in action:
+                    call_amount = highest_bet - player.current_bet
+                    if call_amount >= player.credits:
+                        call_amount = player.credits
+                        print(f"{player.name}is going all in!")
+                    if call_amount <= highest_bet:
+                        player.credits -= call_amount
+                        player.current_bet = call_amount
+                        self.pot += call_amount
+                        print(f"{player.name} has called!")
+
+                if 'raise' in action:
+                    raise_amount = input("How much do you want to raise by?")
+                    if raise_amount >= player.credits:
+                        raise_amount = player.credits
+                        print(f"{player.name}is going all in!")
+                    if raise_amount <= player.credits:
+                        player.credits -= raise_amount
+                        player.current_bet = raise_amount
+                        self.pot += raise_amount
+                        print(f"{player.name} has raised {raise_amount} credits!")
+
+                if 'scrap' in action:
+                    pass
 #Game Loop
     def game_loop(self):
         self.deck.shuffle()
